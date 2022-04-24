@@ -26,25 +26,18 @@ def authenticate_with_code(code):
         'redirect_uri': redirect_uri,
         'grant_type': 'authorization_code'
     }
-    response = spotify_auth_request(data)
-    return SpotifyAuth(response.get('access_token'), response.get('refresh_token'))
+    response = __spotify_auth_request(data)
+    return response.get('refresh_token')
 
-class SpotifyAuth():
-    def __init__(self, access_token, refresh_token):
-        self.access_token = access_token
-        self.refresh_token = refresh_token
-        self.refresher()
+def refresh_token(refresh_token):
+    data = {
+        'grant_type': 'refresh_token',
+        'refresh_token': refresh_token
+    }
+    response = __spotify_auth_request(data)
+    return response.get('access_token')       
 
-    @run_every(5)
-    def refresher(self):
-        data = {
-            'grant_type': 'refresh_token',
-            'refresh_token': self.refresh_token
-        }
-        response = spotify_auth_request(data)
-        self.access_token = response.get('access_token')       
-
-def spotify_auth_request(data):
+def __spotify_auth_request(data):
     response = requests.post('https://accounts.spotify.com/api/token', headers=__auth_request_headers(), data=data)  
     response.raise_for_status()
     return response.json()

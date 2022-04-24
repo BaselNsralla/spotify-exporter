@@ -1,8 +1,8 @@
-from flask import Flask, redirect, request
+from flask import Flask, redirect, request, make_response
 import requests 
 
 import os
-from spotify_auth import authenticate_with_code, SpotifyAuth, request_auth_code
+from spotify_auth import authenticate_with_code, request_auth_code, refresh_token
 
 app = Flask(__name__)
 
@@ -18,10 +18,20 @@ def spotify_login():
     #return 'Hello, World!'
 @app.route('/spotify/auth_callback')
 def spotify_callback():
-    spotify_auth = authenticate_with_code(
+    refresh_token = authenticate_with_code(
         request.args.get('code'),
     )
-    return spotify_auth.access_token
+    resp = make_response('Logged in!')
+    resp.set_cookie('refresh_token', refresh_token)
+    return resp
+
+
+@app.route('/spotify/test')
+def spotify_test():
+    _refresh_token = request.cookies.get('refresh_token')
+    access_token = refresh_token(_refresh_token)
+    return f"access token: ${access_token}"
+    
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
