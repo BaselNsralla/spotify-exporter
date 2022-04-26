@@ -2,7 +2,7 @@ from flask import Flask, redirect, request, make_response
 import requests 
 
 import os
-from spotify_auth import authenticate_with_code, request_auth_code, refresh_token
+from spotify.auth import authenticate_with_code, request_auth_code, refresh_token
 
 app = Flask(__name__)
 
@@ -32,6 +32,12 @@ def spotify_test():
     access_token = refresh_token(_refresh_token)
     return f"access token: ${access_token}"
     
+@app.route('/spotify/export')
+def export():
+    from spotify.playlist_extract import playlists_to_songs
+    _refresh_token = request.cookies.get('refresh_token')
+    access_token = refresh_token(_refresh_token)
+    return "\n,".join(playlists_to_songs(access_token))
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
