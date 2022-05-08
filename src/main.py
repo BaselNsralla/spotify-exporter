@@ -34,10 +34,14 @@ def spotify_test():
     
 @app.route('/spotify/export')
 def export():
-    from spotify.playlist_extract import playlists_to_songs
+    from playlist_extract   import extract_playlists_tracks
+    from playlist_transform import transform_playlists_tracks
+    from view               import playlist_to_html
     _refresh_token = request.cookies.get('refresh_token')
-    access_token = refresh_token(_refresh_token)
-    return "\n,".join(playlists_to_songs(access_token))
+    access_token   = refresh_token(_refresh_token)
+    ext_playlists  = extract_playlists_tracks(access_token)
+    playlists      = transform_playlists_tracks(ext_playlists)
+    return playlist_to_html(playlists)
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.

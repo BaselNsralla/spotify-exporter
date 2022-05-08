@@ -26,15 +26,29 @@ def paginated_request(url, start, step):
     return next_page
 
 
-
-def flat_accumulate(original_func):
+def page_accumulate(original_func):
     """ DECORATOR """
     def decorated(*args, **kwargs):
         results = []
         while True:
             data, has_next = original_func(*args, **kwargs)
+            results = [*results, *data]
             if not has_next:
                 break
-            resutls = [*results, *data]
-        return resutls
+        return results
+    return decorated
+
+def page_accumulate_auto(original_func):
+    """ DECORATOR """
+    def decorated(*args, url, **kwargs):
+        results = []
+        next_url = url
+        while True:
+            next_kwargs = {**kwargs, 'url': next_url}
+            data, next_url = original_func(*args, **next_kwargs)
+            results = [*results, *data]
+            if not next_url:
+                break
+        return results
+
     return decorated
