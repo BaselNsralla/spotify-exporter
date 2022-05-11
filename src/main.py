@@ -36,11 +36,16 @@ def spotify_test():
 def export():
     from playlist_extract   import extract_playlists_tracks
     from playlist_transform import transform_playlists_tracks
+    from playlist_export    import export_playlist_tracks
     from view               import playlist_to_html
     _refresh_token = request.cookies.get('refresh_token')
     access_token   = refresh_token(_refresh_token)
     ext_playlists  = extract_playlists_tracks(access_token)
     playlists      = transform_playlists_tracks(ext_playlists)
+
+
+    export_playlist_tracks(playlists[0])
+
     return playlist_to_html(playlists)
 
 if __name__ == '__main__':
