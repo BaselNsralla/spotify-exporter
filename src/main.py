@@ -32,21 +32,29 @@ def spotify_test():
     access_token = refresh_token(_refresh_token)
     return f"access token: ${access_token}"
     
-@app.route('/spotify/export')
-def export():
+@app.route('/spotify/export/<user>')
+def export(user):
     from playlist_extract   import extract_playlists_tracks
     from playlist_transform import transform_playlists_tracks
     from playlist_export    import export_playlist_tracks
     from view               import playlist_to_html
+    #user = request.view_args['user']
     _refresh_token = request.cookies.get('refresh_token')
     access_token   = refresh_token(_refresh_token)
-    ext_playlists  = extract_playlists_tracks(access_token)
+    ext_playlists  = extract_playlists_tracks(access_token, user=user)
     playlists      = transform_playlists_tracks(ext_playlists)
 
-
-    export_playlist_tracks(playlists[0])
+    for playlist in playlists:
+        print("Exporting: ", playlist['title'])
+        export_playlist_tracks(playlist)
 
     return playlist_to_html(playlists)
+
+
+@app.route('/youtube/search')
+def search():
+    from playlist_export    import just_search
+    return just_search()
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.

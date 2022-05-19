@@ -23,8 +23,8 @@ class SpotifyClient:
         items = result[key]
         return (items, result['next'])
 
-    def playlists(self):
-        paginator = paginated_request('https://api.spotify.com/v1/users/zilkvey/playlists?offset={}&limit={}', start=0, step=20)
+    def playlists(self, user):
+        paginator = paginated_request(f'https://api.spotify.com/v1/users/{user}/playlists?'+'offset={}&limit={}', start=0, step=20)
         return self.__collect_by_key(paginator=paginator())
 
     

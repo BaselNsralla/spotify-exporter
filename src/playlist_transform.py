@@ -3,7 +3,10 @@
 
 def __track_as_text(item):
     artist_sep = "and "
-    return f"{item[0]} - {artist_sep.join(item[1])}"
+    return {
+        'content_title': f"{item['title']} - {artist_sep.join(item['artist_names'])}",
+        'is_song': item['type'] == 'track'  
+    }
 
 
 def transform_playlists_tracks(playlists):
@@ -11,7 +14,7 @@ def transform_playlists_tracks(playlists):
     result = []
     for playlist in playlists:
         result.append({
-            'name': playlist['name'], 
+            'title': playlist['name'], 
             'tracks': list(map(__track_as_text, playlist['tracks'])) 
         })
     return result
