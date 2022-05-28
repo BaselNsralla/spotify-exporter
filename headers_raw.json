@@ -1,0 +1,40 @@
+:authority: music.youtube.com
+:method: POST
+:path: /youtubei/v1/browse/edit_playlist?key=AIzaSyC9XL3ZjWddXya6X74dJoCTL-WEYFDNX30&prettyPrint=false
+:scheme: https
+accept: */*
+accept-encoding: gzip, deflate, br
+accept-language: en-GB,en-US;q=0.9,en;q=0.8
+authorization: SAPISIDHASH 1652244674_1a2aab93cc8620e1e73eb2ea0a8876f9c0cfc2ed
+cache-control: no-cache
+content-length: 2307
+content-type: application/json
+cookie: 
+origin: https://music.youtube.com
+pragma: no-cache
+referer: https://music.youtube.com/channel/UCM6h8_rNLtYVky-6LPjOMIw
+sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="97", "Chromium";v="97"
+sec-ch-ua-arch: "x86"
+sec-ch-ua-bitness: "64"
+sec-ch-ua-full-version: "97.0.4692.99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-model
+sec-ch-ua-platform: "macOS"
+sec-ch-ua-platform-version: "11.5.1"
+sec-fetch-dest: empty
+sec-fetch-mode: same-origin
+sec-fetch-site: same-origin
+user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36
+x-client-data: CJe2yQEIprbJAQjEtskBCKmdygEIq//KAQiSocsBCJihywEInvnLAQjnhMwBCJmPzAEIyKbMARisqcoB
+Decoded:
+message ClientVariations {
+  // Active client experiment variation IDs.
+  repeated int32 variation_id = [3300119, 3300134, 3300164, 3313321, 3325867, 3330194, 3330200, 3341470, 3342951, 3344281, 3347272];
+  // Active client experiment variation IDs that trigger server-side behavior.
+  repeated int32 trigger_variation_id = [3314860];
+}
+x-goog-authuser: 0
+x-goog-visitor-id: CgtxczlHemRBQnMyayjogO2TBg%3D%3D
+x-origin: https://music.youtube.com
+x-youtube-client-name: 67
+x-youtube-client-version: 1.20220502.01.00
