@@ -15,7 +15,6 @@ def spotify_login():
         url,
     )
 
-    #return 'Hello, World!'
 @app.route('/spotify/auth_callback')
 def spotify_callback():
     refresh_token = authenticate_with_code(
@@ -52,6 +51,6 @@ def export(user):
 
 
 if __name__ == '__main__':
-    # Bind to PORT if defined, otherwise default to 5000.
+    # Bind to PORT if defined, otherwise default to 3000.
     port = int(os.environ.get('SPOTIFY_YTMUSIC_PORT', 3000))
     app.run(host='localhost', port=port)
