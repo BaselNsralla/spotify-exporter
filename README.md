@@ -1,4 +1,4 @@
-# Spotify YTMusic 
+# Spotify to YTMusic 
 Export Spotify playlists to Youtube
 
 ### Endpoints
