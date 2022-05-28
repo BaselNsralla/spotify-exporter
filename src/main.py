@@ -51,11 +51,6 @@ def export(user):
     return playlist_to_html(playlists)
 
 
-@app.route('/youtube/search')
-def search():
-    from playlist_export    import just_search
-    return just_search()
-
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('SPOTIFY_YTMUSIC_PORT', 3000))
